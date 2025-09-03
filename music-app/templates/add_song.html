@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 id="allsongs" class="mb-3">➕ Add New Song</h2>
+
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data" class="p-3 rounded shadow-sm bg-dark text-light">
+    <!-- Song Title -->
+    <input type="text" class="form-control mb-3" name="title" placeholder="🎵 Song Title" required>
+
+    <!-- Artist -->
+    <input type="text" class="form-control mb-3" name="artist" placeholder="🎤 Artist" required>
+
+    <!-- Image -->
+    <input type="text" class="form-control mb-3" name="image" placeholder="🖼️ Image URL" required>
+
+    <!-- Category Dropdown -->
+    <select class="form-select mb-3" name="category" required>
+        <option value="">-- 🎼 Select Category --</option>
+        {% for cat in categories %}
+            <option value="{{ cat[0] }}">{{ cat[1] }}</option>
+        {% endfor %}
+    </select>
+
+    <!-- Audio Upload -->
+    <input class="form-control mb-3" type="file" name="audio" accept=".mp3" required>
+
+    <!-- Submit -->
+    <button class="btn btn-success w-100">✅ Upload Song</button>
+</form>
+{% endblock %}

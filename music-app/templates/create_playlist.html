@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 id="allsongs" class="mb-4 text-center">🎧 Your Playlists</h2>
+
+<!-- Create Playlist Form -->
+<form method="post" action="/create_playlist" class="mb-4 d-flex flex-column flex-md-row justify-content-center align-items-center gap-2">
+    <input class="form-control w-100 w-md-50" name="name" placeholder="Enter playlist name..." required>
+    <button class="btn btn-danger px-4">Create</button>
+</form>
+
+<!-- Playlist List -->
+<div class="container">
+    <ul class="list-group shadow-sm rounded playlist-list bg-dark text-light">
+        {% for pl in playlists %}
+        <li class="list-group-item d-flex justify-content-between align-items-center playlist-item bg-dark text-light">
+            <a href="/playlist/{{ pl[0] }}" class="playlist-link text-light">
+                🎵 {{ pl[1] }}
+            </a>
+            <span class="badge bg-secondary">View</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<!-- Custom CSS Styling -->
+<style>
+/* Playlist Items */
+.playlist-list {
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.playlist-item {
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+    padding: 12px 16px;
+}
+
+.playlist-item:hover {
+    background-color: #f8f9fa;
+}
+
+.playlist-link {
+    text-decoration: none;
+    color: #212529;
+    font-weight: 500;
+    flex-grow: 1;
+}
+
+.playlist-link:hover {
+    text-decoration: none;
+    color: #dc3545;
+}
+
+/* Form field */
+form input.form-control {
+    max-width: 300px;
+    border-radius: 8px;
+}
+
+form button.btn {
+    border-radius: 8px;
+}
+</style>
+{% endblock %}
+

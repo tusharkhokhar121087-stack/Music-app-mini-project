@@ -1,0 +1,41 @@
+<h2>All Songs</h2>
+<a href="/add_song">Add Song</a> | <a href="/logout">Logout</a>
+<br><br>
+
+<ul>
+  {% for song in songs %}
+    <li>
+      {{ song[1] }} by {{ song[2] }}
+      <span class="heart {% if song[0] in favorites %}active{% endif %}" data-id="{{ song[0] }}">♥</span>
+    </li>
+  {% endfor %}
+</ul>
+
+<hr>
+
+<h3>Your Playlists</h3>
+<form method="post" action="/create_playlist">
+    <input name="playlist_name" placeholder="New Playlist Name" required>
+    <button type="submit">Create</button>
+</form>
+
+<ul>
+  {% for p in playlists %}
+    <li><a href="/playlist/{{ p[0] }}">{{ p[1] }}</a></li>
+  {% endfor %}
+</ul>
+
+<style>
+  .heart { cursor: pointer; color: gray; }
+  .heart.active { color: red; }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $('.heart').click(function () {
+    let el = $(this), id = el.data('id');
+    $.post('/favorite/' + id, {}, function (res) {
+      el.toggleClass('active', res.status === 'added');
+    });
+  });
+</script>
